@@ -55,5 +55,8 @@ def build_classifier():
 
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score
-classifier = KerasClassifier(build_fn=build_classifier,batch_size=10,np_epoch=100)
-accuracies = cross_val_score(esti)
+classifier = KerasClassifier(build_fn=build_classifier,batch_size=10,nb_epoch=100)
+#n_jobs is the number of cpu,-1 is all,cv is the number of training
+accuracies = cross_val_score(estimator=classifier,X=x_train,y=y_train,cv=11,n_jobs=-1)
+mean = accuracies.mean()
+variance = accuracies.std()
