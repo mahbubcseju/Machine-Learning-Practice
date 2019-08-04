@@ -66,6 +66,7 @@ x_test=np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
 
 test_data_result=regressor.predict(x_test)
 test_data_result=sc.inverse_transform(test_data_result)
+#Plotting the data to visualize 
 plot.plot(test_data,color='red',label="Real Google Stock Price")
 plot.plot(test_data_result,color='green',label="Predicted Google Stock Price")
 plot.title("RNN implementation")
