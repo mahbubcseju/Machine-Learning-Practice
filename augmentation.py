@@ -56,15 +56,12 @@ def imgGen(img,
     for img_batch in datagen.flow(img, batch_size=9, shuffle=False):
 
         for img1 in img_batch:
+            if koyta >= batch_size:
+                return i
             if path_prefix:
                 imsave(path_prefix + "/" + str(i)+ formats,img1)
                 i=i+1
                 koyta += 1
-                if koyta >= batch_size:
-                    return i
-            
-        if koyta >= batch_size:
-            return i
     return i
     
 
@@ -131,7 +128,8 @@ def process_images(image_paths, output_directory, total=500):
     per_image = total // total_image
     rest = total % total_image
     counter = 0
-    for ind in range(min(len(image_paths), total)):
+    print(per_image, rest)
+    for ind in range(total_image):
 
         if ind < rest:
             counter = make_n_image(image_paths[ind], per_image + 1, counter, output_directory)
@@ -157,7 +155,7 @@ def augment(data_directory, augmented_directory, total):
                     continue
 
                 image_paths.append(image_path)
-            process_images(image_paths, output_directory)
+            process_images(image_paths, output_directory, total)
 
 
     for directory in os.listdir(augmented_directory):
